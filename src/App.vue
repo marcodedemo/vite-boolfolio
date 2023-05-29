@@ -10,6 +10,8 @@ export default {
     return {
 
       projects: [],
+      totalPages: 0,
+      currentPage:1,
 
     }
   },
@@ -29,13 +31,31 @@ export default {
 
     apiCall(){
 
-      axios.get('http://127.0.0.1:8000/api/projects').then(res =>{
+      axios.get('http://127.0.0.1:8000/api/projects?page=' + this.currentPage).then(res =>{
 
-        this.projects = res.data.results;
+        this.projects = res.data.results.data;
 
-        console.log(this.projects)
+        this.totalPages = res.data.results.last_page;
+
+        console.log(res)
 
       })
+    },
+
+    nextPage(){
+      if(this.currentPage < this.totalPages){
+
+        this.currentPage++;
+        this.apiCall();
+      }
+    },
+
+    prevPage(){
+      if(this.currentPage > 1){
+
+        this.currentPage--;
+        this.apiCall();
+      }
     },
   },
 
@@ -57,6 +77,13 @@ export default {
     
     <ProjectCard :project="project" v-for="project in projects"></ProjectCard>
     
+  </div>
+
+  <div id="pagination" class="d-flex justify-content-center gap-5 py-3 fs-2 ">
+
+    <div @click="prevPage" class="back"><i class="fa-solid fa-arrow-left"></i></div>
+    <div @click="nextPage" class="next"><i class="fa-solid fa-arrow-right"></i></div>
+
   </div>
   
 </div>
