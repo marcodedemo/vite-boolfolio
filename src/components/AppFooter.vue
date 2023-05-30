@@ -71,8 +71,5 @@ export default {
 /* ----------------------------------- css ---------------------------------- */
 <style lang="scss" scoped>
 
-#footer-container{
-    margin-top: 600px;
-}
 
 </style>

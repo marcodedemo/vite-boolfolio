@@ -22,6 +22,9 @@ export default {
 <div class="container">
 
     <h1 class="py-3">Benvenuto nella homepage</h1>
+
+    <router-link :to="{name:'projects'}">Vai alla pagina dei progetti</router-link>
+
     
 </div>
 
