@@ -1,10 +1,9 @@
 
 /* --------------------------------- js --------------------------------- */
 <script>
-
-import AppHeader from './components/AppHeader.vue';
-
 export default {
+    name: 'AppHome',
+
   data() {
     return {
 
@@ -12,14 +11,7 @@ export default {
 
     }
   },
-
-  components : {
-    AppHeader,
-  },
-
 }
-
-
 
 </script>
 
@@ -27,14 +19,16 @@ export default {
 /* ---------------------------------- html ---------------------------------- */
 <template>
 
-<AppHeader></AppHeader>
+<div class="container">
 
-<router-view></router-view>
+    <h1 class="py-3">Benvenuto nella homepage</h1>
+    
+</div>
 
 </template>
 
 
 /* ----------------------------------- css ---------------------------------- */
-<style lang="scss">
+<style lang="scss" scoped>
 
 </style>
