@@ -73,13 +73,13 @@ export default {
 
     <div v-if="this.projects.length > 0" id="cards-page-container">
 
-      <div id="card-container" class="d-flex flex-wrap gap-4">
+      <div id="card-container" class="d-flex flex-wrap justify-content-center gap-4">
         
         <ProjectCard :project="project" v-for="project in projects"></ProjectCard>
         
       </div>
       
-      <div id="pagination" class="d-flex justify-content-center gap-5 py-3 fs-2 ">
+      <div id="pagination" class=" container d-flex justify-content-center gap-5 py-3 fs-2 ">
         
         <div @click="prevPage" class="back"><i class="fa-solid fa-arrow-left"></i></div>
         <div @click="nextPage" class="next"><i class="fa-solid fa-arrow-right"></i></div>
