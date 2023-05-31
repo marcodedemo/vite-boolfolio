@@ -23,7 +23,7 @@ export default {
 
     <h1 class="py-3">Benvenuto nella homepage</h1>
 
-    <router-link :to="{name:'projects'}">Vai alla pagina dei progetti</router-link>
+    <router-link :to="{name:'projects.index'}">Vai alla pagina dei progetti</router-link>
 
     
 </div>

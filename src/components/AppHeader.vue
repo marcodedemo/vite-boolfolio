@@ -26,7 +26,7 @@ export default {
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <router-link class="nav-link" :to="{name: 'home'}">Home</router-link>
-        <router-link class="nav-link" :to="{name: 'projects'}">Projects</router-link>
+        <router-link class="nav-link" :to="{name: 'projects.index'}">Projects</router-link>
         <router-link class="nav-link" :to="{name: 'about'}">About Me</router-link>
 
 
