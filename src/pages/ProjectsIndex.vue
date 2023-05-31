@@ -11,9 +11,15 @@ export default {
   data() {
     return {
 
-    projects: [],
+      projects: [],
       totalPages: 0,
       currentPage:1,
+      types: [],
+      selectedTypeId: '',
+      isLoading: true,
+      projectFound: false,
+      error: '',
+
 
     }
   },
@@ -32,13 +38,43 @@ export default {
 
         apiCall(){
 
-        axios.get('http://127.0.0.1:8000/api/projects?page=' + this.currentPage).then(res =>{
+        axios.get('http://127.0.0.1:8000/api/projects?page=' + this.currentPage + '&type_id=' + this.selectedTypeId).then(res =>{
+          console.log(res)
 
-            this.projects = res.data.results.data;
+          this.isLoading = false;
+
+          console.log(res.data.success)
+
+          if(res.data.success){
 
             this.totalPages = res.data.results.last_page;
+  
+            this.types = res.data.types;
 
-            console.log(res)
+            this.projectFound = true;
+
+            if(this.selectedTypeId == ''){
+
+              this.projects = res.data.results.data;
+  
+            }else{
+
+              this.projects = res.data.results;
+  
+
+            }
+
+
+          }else{
+
+            this.projectFound = false;
+            this.error = res.data.error;
+            
+          }
+
+          
+          
+
 
         })
         },
@@ -76,27 +112,45 @@ export default {
 
     <h1 class="py-3">Projects</h1>
 
-    <div v-if="this.projects.length > 0" id="cards-page-container">
+    <form class="py-3">
 
-      <div id="card-container" class="d-flex flex-wrap justify-content-center gap-4">
+      <select class="form-select" name="type_id" id="type_id" v-model="selectedTypeId" @change="apiCall()">
+        <option value="">Tutte</option>
+        <option v-for="singleType in types" :value="singleType.id">{{ singleType.name }}</option>
+      </select>
+
+    </form>
+
+    <div v-if="!this.isLoading" id="cards-page-container">
+
+      <div v-if="projectFound" id="cards-container">
+
+        <div class="d-flex flex-wrap justify-content-center gap-4">
+          
+          <ProjectCard :project="project" v-for="project in projects"></ProjectCard>
+          
+        </div>
         
-        <ProjectCard :project="project" v-for="project in projects"></ProjectCard>
+        <div v-if="this.totalPages > 1" id="pagination-container" class=" container d-flex justify-content-center gap-5 py-3 fs-2 pt-5">
+          
+          <ul class="pagination py-3 pt-5">
+            <li @click="this.prevPage()" class="page-item"><a class="page-link">Previous</a></li>
+            
+            <li @click="this.changePage(page)" v-for="page in this.totalPages" :class="this.currentPage == page ? 'active' : ''" class="page-item"><a class="page-link" href="#">{{ page }}</a></li>
+            
+            <li @click="this.nextPage()" class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
         
+        </div>
+
       </div>
-      
-      <div id="pagination" class=" container d-flex justify-content-center gap-5 py-3 fs-2 pt-5">
-        
-        <ul class="pagination py-3 pt-5">
-          <li @click="this.prevPage()" class="page-item"><a class="page-link">Previous</a></li>
 
-          <li @click="this.changePage(page)" v-for="page in this.totalPages" :class="this.currentPage == page ? 'active' : ''" class="page-item"><a class="page-link" href="#">{{ page }}</a></li>
 
-          <li @click="this.nextPage()" class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-
-        
+      <div v-else class="alert alert-danger" role="alert">
+        {{ this.error }}
       </div>
-      
+
+        
     </div>
 
     <div v-else class="loading">
