@@ -58,6 +58,11 @@ export default {
             this.apiCall();
         }
         },
+
+        changePage(page){
+          this.currentPage = page;
+          this.apiCall();
+        }
     },
 }
 
@@ -79,10 +84,16 @@ export default {
         
       </div>
       
-      <div id="pagination" class=" container d-flex justify-content-center gap-5 py-3 fs-2 ">
+      <div id="pagination" class=" container d-flex justify-content-center gap-5 py-3 fs-2 pt-5">
         
-        <div @click="prevPage" class="back"><i class="fa-solid fa-arrow-left"></i></div>
-        <div @click="nextPage" class="next"><i class="fa-solid fa-arrow-right"></i></div>
+        <ul class="pagination py-3 pt-5">
+          <li @click="this.prevPage()" class="page-item"><a class="page-link">Previous</a></li>
+
+          <li @click="this.changePage(page)" v-for="page in this.totalPages" :class="this.currentPage == page ? 'active' : ''" class="page-item"><a class="page-link" href="#">{{ page }}</a></li>
+
+          <li @click="this.nextPage()" class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+
         
       </div>
       

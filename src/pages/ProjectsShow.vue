@@ -34,8 +34,7 @@ export default {
         apiCall(){
             
             axios.get(this.baseUrl + '/api/projects/' + this.projectSlug).then(res =>{
-            
-                console.log(res)
+
             this.project = res.data.response;
 
             
