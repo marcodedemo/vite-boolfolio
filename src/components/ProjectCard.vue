@@ -29,7 +29,7 @@ export default {
 /* ---------------------------------- html ---------------------------------- */
 <template>
 
-<div class="card" style="width: 18rem;">
+<div class="card">
       
     <img :src="project.cover_image ? this.imgBaseUrl + 'storage/' + project.cover_image : 'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'" class="card-img-top" alt="">
     
@@ -58,7 +58,7 @@ export default {
 
 .card{
 
-  width: 100%;
+  width: calc(100% / 4 - (20px * 3 / 4));
   height: 400px;
 
   img{

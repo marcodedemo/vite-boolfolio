@@ -115,7 +115,7 @@ export default {
     <form class="py-3">
 
       <select class="form-select" name="type_id" id="type_id" v-model="selectedTypeId" @change="apiCall()">
-        <option value="">Tutte</option>
+        <option value="">Tutte le categorie</option>
         <option v-for="singleType in types" :value="singleType.id">{{ singleType.name }}</option>
       </select>
 
@@ -125,7 +125,7 @@ export default {
 
       <div v-if="projectFound" id="cards-container">
 
-        <div class="d-flex flex-wrap justify-content-center gap-4">
+        <div id="single-card-container" class="d-flex flex-wrap">
           
           <ProjectCard :project="project" v-for="project in projects"></ProjectCard>
           
@@ -134,11 +134,11 @@ export default {
         <div v-if="this.totalPages > 1" id="pagination-container" class=" container d-flex justify-content-center gap-5 py-3 fs-2 pt-5">
           
           <ul class="pagination py-3 pt-5">
-            <li @click="this.prevPage()" class="page-item"><a class="page-link">Previous</a></li>
+            <li @click="this.prevPage()" :class="this.currentPage == 1 ? 'disabled' : ''" class="page-item"><a class="page-link">Previous</a></li>
             
             <li @click="this.changePage(page)" v-for="page in this.totalPages" :class="this.currentPage == page ? 'active' : ''" class="page-item"><a class="page-link" href="#">{{ page }}</a></li>
             
-            <li @click="this.nextPage()" class="page-item"><a class="page-link" href="#">Next</a></li>
+            <li @click="this.nextPage()" :class="this.currentPage == this.totalPages ? 'disabled' : ''" class="page-item"><a class="page-link" href="#">Next</a></li>
           </ul>
         
         </div>
@@ -167,6 +167,10 @@ export default {
 
 /* ----------------------------------- css ---------------------------------- */
 <style lang="scss" scoped>
+
+  #single-card-container{
+    gap: 20px;
+  }
   .loading{
     display: flex;
     justify-content: center;
