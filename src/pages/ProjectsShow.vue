@@ -37,6 +37,7 @@ export default {
 
             this.project = res.data.response;
 
+            console.log(this.project)
             
             this.isLoading = false;
 
@@ -60,7 +61,13 @@ export default {
 
         getImage(){
 
-            return this.baseUrl + '/storage/' + this.project.cover_image;
+            if(this.project.cover_image){
+
+                return this.baseUrl + '/storage/' + this.project.cover_image;
+
+            }else{
+                return 'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'
+            }
         }
     }
 }
@@ -142,10 +149,13 @@ export default {
 }
 
 #project-image{
-    max-width: 400px;
+    width: 300px;
+    height: 300px;
 
     img{
         width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 }
 
