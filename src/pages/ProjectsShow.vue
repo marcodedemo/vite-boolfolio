@@ -22,11 +22,12 @@ export default {
   
   
 
-    created(){
+    mounted(){
         
         this.projectSlug = this.$route.params.slug;
 
         this.apiCall();
+
     },
     
     methods: {
@@ -36,8 +37,6 @@ export default {
             axios.get(this.baseUrl + '/api/projects/' + this.projectSlug).then(res =>{
 
             this.project = res.data.response;
-
-            console.log(this.project)
             
             this.isLoading = false;
 
@@ -51,6 +50,8 @@ export default {
                 this.projectFound = false;
                 this.error = res.data.error;
             }
+
+            document.title = 'Boolfolio - ' + this.project.title;
 
             })
         },

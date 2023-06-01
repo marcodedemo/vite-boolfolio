@@ -31,7 +31,7 @@ export default {
 
     created(){
 
-        this.apiCall();
+      this.apiCall();
     },
 
     methods: {
@@ -54,11 +54,10 @@ export default {
       },
 
         filteredApiCall(){
-          
-          this.currentPage = 1;
-          
+
           axios.get('http://127.0.0.1:8000/api/projects?page=' + this.currentPage + '&type_id=' + this.selectedTypeId).then(res =>{
 
+            console.log('http://127.0.0.1:8000/api/projects?page=' + this.currentPage + '&type_id=' + this.selectedTypeId);
           this.isLoading = false;
 
           if(res.data.success){
@@ -78,10 +77,6 @@ export default {
             
           }
 
-          
-          
-
-
         })
         },
 
@@ -91,7 +86,7 @@ export default {
           this.currentPage++;
           this.apiCall();
 
-        }else{
+        }else if(this.currentPage < this.totalPages){
           this.currentPage++;
           this.filteredApiCall();
         }
@@ -104,15 +99,25 @@ export default {
           this.currentPage--;
           this.apiCall();
 
-        }else{
+        }else if(this.currentPage > 1){
           this.currentPage--;
           this.filteredApiCall();
         }
         },
 
         changePage(page){
-          this.currentPage = page;
-          this.apiCall();
+
+          if(this.selectedTypeId == ''){
+
+            this.currentPage = page;
+            this.apiCall();
+
+          }else{
+
+            this.currentPage = page;
+            this.filteredApiCall();
+          }
+
         }
     },
 }
@@ -129,7 +134,7 @@ export default {
 
     <form class="py-3">
 
-      <select class="form-select" name="type_id" id="type_id" v-model="selectedTypeId" @change="filteredApiCall()">
+      <select class="form-select" name="type_id" id="type_id" v-model="selectedTypeId" @change="this.currentPage = 1, filteredApiCall()">
         <option value="">Tutte le categorie</option>
         <option v-for="singleType in types" :value="singleType.id">{{ singleType.name }}</option>
       </select>
