@@ -57,7 +57,7 @@ export default {
 <style lang="scss">
 
 .card{
-
+  
   width: calc(100% / 4 - (20px * 3 / 4));
   height: 400px;
 

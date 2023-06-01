@@ -36,14 +36,30 @@ export default {
 
     methods: {
 
-        apiCall(){
+      apiCall(){
 
-        axios.get('http://127.0.0.1:8000/api/projects?page=' + this.currentPage + '&type_id=' + this.selectedTypeId).then(res =>{
-          console.log(res)
+        axios.get('http://127.0.0.1:8000/api/projects?page=' + this.currentPage).then(res =>{
+
+        this.isLoading = false;
+        this.projectFound = true;
+
+        this.projects = res.data.results.data;
+
+        this.totalPages = res.data.results.last_page;
+
+        this.types = res.data.types;
+
+
+        })
+      },
+
+        filteredApiCall(){
+          
+          this.currentPage = 1;
+          
+          axios.get('http://127.0.0.1:8000/api/projects?page=' + this.currentPage + '&type_id=' + this.selectedTypeId).then(res =>{
 
           this.isLoading = false;
-
-          console.log(res.data.success)
 
           if(res.data.success){
 
@@ -53,17 +69,7 @@ export default {
 
             this.projectFound = true;
 
-            if(this.selectedTypeId == ''){
-
-              this.projects = res.data.results.data;
-  
-            }else{
-
-              this.projects = res.data.results;
-  
-
-            }
-
+            this.projects = res.data.results.data;
 
           }else{
 
@@ -80,18 +86,27 @@ export default {
         },
 
         nextPage(){
-        if(this.currentPage < this.totalPages){
+        if(this.currentPage < this.totalPages  && this.selectedTypeId == ''){
 
-            this.currentPage++;
-            this.apiCall();
+          this.currentPage++;
+          this.apiCall();
+
+        }else{
+          this.currentPage++;
+          this.filteredApiCall();
         }
+
         },
 
         prevPage(){
-        if(this.currentPage > 1){
+        if(this.currentPage > 1 && this.selectedTypeId == ''){
 
-            this.currentPage--;
-            this.apiCall();
+          this.currentPage--;
+          this.apiCall();
+
+        }else{
+          this.currentPage--;
+          this.filteredApiCall();
         }
         },
 
@@ -114,7 +129,7 @@ export default {
 
     <form class="py-3">
 
-      <select class="form-select" name="type_id" id="type_id" v-model="selectedTypeId" @change="apiCall()">
+      <select class="form-select" name="type_id" id="type_id" v-model="selectedTypeId" @change="filteredApiCall()">
         <option value="">Tutte le categorie</option>
         <option v-for="singleType in types" :value="singleType.id">{{ singleType.name }}</option>
       </select>
