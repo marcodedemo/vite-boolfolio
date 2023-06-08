@@ -29,26 +29,27 @@ export default {
 /* ---------------------------------- html ---------------------------------- */
 <template>
 
-<div class="card">
-      
-    <img :src="project.cover_image ? this.imgBaseUrl + 'storage/' + project.cover_image : 'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'" class="card-img-top" alt="">
-    
-    <div class="card-body">
+  <div class="card" :style="{ backgroundImage: `url(${imgBaseUrl}storage/${project.cover_image})` }">
 
-      <h5 class="card-title">{{project.title}}</h5>
-      <p class="card-text">{{ project.description }}</p>
+    <div class="card-content">
 
-      
+      <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+          
+        <h5 class="card-title">{{project.title}}</h5>
+        <p class="card-text">{{ project.description }}</p>
+          
+          
+        
+        <div class="button-container d-flex justify-content-center align-items-center p-3">
+          
+          <router-link :to="{name: 'projects.show', params: {slug: project.slug}}" class="btn btn-outline-info">Visualizza Dettagli</router-link>
+          <a :href="project.link" class="btn btn-primary">Link Github</a>
+          
+        </div>
+        
+      </div>
     </div>
-
-    <div class="button-container d-flex justify-content-between p-3">
-
-      <router-link :to="{name: 'projects.show', params: {slug: project.slug}}" class="btn btn-outline-info">Project Details</router-link>
-      <a :href="project.link" class="btn btn-primary">Github Link</a>
-      
-    </div>
-
-</div>
+  </div>
 
 </template>
 
@@ -57,15 +58,76 @@ export default {
 <style lang="scss">
 
 .card{
-  
-  width: calc(100% / 4 - (20px * 3 / 4));
-  height: 400px;
 
-  img{
+  position: relative;
+  
+  width: calc(100% / 3 - (20px * 2 / 3));
+  height: 300px;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  border: 1px solid rgb(0, 0, 0);
+
+  overflow: hidden;
+
+
+  &::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: all .5s;
+  }
+
+  &:hover::after{
+    opacity: 1;
+  }
+
+  &:hover .card-content{
+    top: 10px;
+
+  
+  }
+
+  &:hover .card-title{
+    padding-bottom: 10px;
+  }
+
+  .card-content{
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    padding: 10px ;
+
+    z-index: 1;
+
+    transition: all .5s ease;
+
+    .card-body{
+      gap: 10px;
+      
+      .card-title{
+        color: white;
+      }
+      
+      .card-text{
+
+        color: white;
+      }
+
+      .button-container{
+        gap: 10px;
+      }
+    }
   }
 }
+
 
 </style>
