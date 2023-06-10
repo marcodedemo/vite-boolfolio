@@ -19,7 +19,7 @@ export default {
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container">
-    <router-link class="navbar-brand" :to="{name: 'home'}">Marco De Demo</router-link>
+    <router-link class="navbar-brand mdd" :to="{name: 'home'}">MDD</router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -40,5 +40,8 @@ export default {
 
 /* ----------------------------------- css ---------------------------------- */
 <style lang="scss" scoped>
-
+.mdd{
+  font-family: 'WindSong', cursive;
+  font-size: 2em;
+}
 </style>

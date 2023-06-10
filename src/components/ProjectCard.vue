@@ -104,9 +104,11 @@ export default {
     top: 100%;
     left: 0;
 
-    padding: 10px ;
+    padding: 10px;
 
     z-index: 1;
+
+    width: 100%;
 
     transition: all .5s ease;
 
@@ -126,6 +128,27 @@ export default {
         gap: 10px;
       }
     }
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .button-container{
+    flex-direction: column;
+  }  
+}
+
+@media screen and (max-width: 992px) {
+  .card{
+  width: calc(100% / 2 - (20px * 1 / 2));
+
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card{
+  width: calc(100% - 20px);
+  margin: 0 auto;
+
   }
 }
 

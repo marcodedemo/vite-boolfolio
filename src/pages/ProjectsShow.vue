@@ -94,7 +94,7 @@ export default {
         
         <hr>
         
-        <h3>Technologies:</h3>
+        <h3>Tecnologie:</h3>
         <div id="technologies-container" class="d-flex gap-3">
             <div v-for="technology in this.project.technologies" class="tech-logo">
                 <img :src="'../../public/img/logos/' + technology.name + '.png'" alt="">
@@ -109,7 +109,7 @@ export default {
         
         <hr>
         
-        <h3>Description:</h3>
+        <h3>Descrizione:</h3>
         
         <p>{{this.project.description}}</p>
         

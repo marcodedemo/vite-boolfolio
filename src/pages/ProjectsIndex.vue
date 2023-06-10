@@ -130,7 +130,7 @@ export default {
 
   <div class="container">
 
-    <h1 class="py-3">Projects</h1>
+    <h1 class="py-3">Progetti</h1>
 
     <form class="py-3">
 
