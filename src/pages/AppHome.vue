@@ -1,18 +1,21 @@
 
 /* --------------------------------- js --------------------------------- */
 <script>
+
+
 export default {
-    name: 'AppHome',
+  name: 'AppHome',
 
   data() {
     return {
 
-      
-
     }
   },
-}
 
+  mounted() {
+    AOS.init();
+  }
+}
 </script>
 
 
@@ -20,7 +23,6 @@ export default {
 <template>
 
 <div class="container">
-
 
 
   <router-link :to="{name:'projects.index'}">Vai alla pagina dei progetti</router-link>

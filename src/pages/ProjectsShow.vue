@@ -103,7 +103,7 @@ export default {
         
         <hr>
         
-        <div id="project-image">
+        <div id="project-image" class="d-flex justify-content-center align-items-center">
             <img :src="getImage" alt="">
         </div>
         
@@ -150,13 +150,13 @@ export default {
 }
 
 #project-image{
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    height: 800px;
 
     img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        width: 80%;
+        height: 80%;
+        object-fit: contain;
     }
 }
 
